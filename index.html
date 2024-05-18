@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Search Engine</title>
-    <link rel="stylesheet" href= "style.css">
-    <script defer src=""></script>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
 </head>
 <body>
     <header>
         <h1>Job Search Engine</h1>
-        <input type="text" id="search-bar" placeholder="Search for jobs...">
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search for jobs...">
+            <button id="search-button">Search</button>
+        </div>
     </header>
     
     <main>
@@ -33,6 +36,7 @@
             <span id="salary-range-value">0 - 200000</span>
 
             <!-- Additional filters as needed -->
+            <button id="filter-button">Apply Filters</button>
         </aside>
 
         <section id="search-results">
@@ -49,3 +53,4 @@
     </footer>
 </body>
 </html>
+
