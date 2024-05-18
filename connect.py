@@ -7,5 +7,14 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 try:
     client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
+    db = client['JobConnector']
+    collection = db['testCollection']
+
+    sample_document = {"name": "John Doe", "email": "johndoe@example.com"}
+    collection.insert_one(sample_document)
+    print("Sample document inserted, collection created.")
 except Exception as e:
     print(e)
+
+
+
