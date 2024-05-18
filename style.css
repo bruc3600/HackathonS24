@@ -1,0 +1,224 @@
+/* Basic reset for better cross-browser compatibility */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+/* Header styling */
+header {
+    background-color: #0073e6;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+header input[type="text"] {
+    width: 50%;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    transition: box-shadow 0.3s;
+}
+
+header input[type="text"]:focus {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+#search-button {
+    padding: 15px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    background-color: #005bb5;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#search-button:hover {
+    background-color: #004494;
+}
+
+/* Main layout styling */
+main {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Filters section styling */
+aside#filters {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+aside#filters h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #0073e6;
+}
+
+aside#filters label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+aside#filters select, aside#filters input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+aside#filters input[type="range"] {
+    appearance: none;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+aside#filters input[type="range"]:hover {
+    opacity: 1;
+}
+
+aside#filters input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #0073e6;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+aside#filters input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #0073e6;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#filter-button {
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+#filter-button:hover {
+    background-color: #005bb5;
+}
+
+/* Search results section styling */
+section#search-results {
+    flex: 3;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-listing {
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.job-listing h3 {
+    margin-bottom: 10px;
+    color: #0073e6;
+    font-size: 1.8em;
+}
+
+.job-listing p {
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.job-listing button {
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.job-listing button:hover {
+    background-color: #005bb5;
+}
+
+/* Pagination styling */
+footer {
+    text-align: center;
+    padding: 20px;
+}
+
+footer #pagination button {
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+}
+
+footer #pagination button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+footer #pagination button:hover:not(:disabled) {
+    background-color: #005bb5;
+}
+
+footer #pagination span {
+    font-size: 1.2em;
+}
+

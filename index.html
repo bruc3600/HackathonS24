@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Search Engine</title>
+    <link rel="stylesheet" href= "style.css">
+    <script defer src=""></script>
+</head>
+<body>
+    <header>
+        <h1>Job Search Engine</h1>
+        <input type="text" id="search-bar" placeholder="Search for jobs...">
+    </header>
+    
+    <main>
+        <aside id="filters">
+            <h2>Filters</h2>
+            <label for="location-filter">Location:</label>
+            <select id="location-filter">
+                <option value="">All Locations</option>
+                <!-- Populate options dynamically -->
+            </select>
+
+            <label for="job-type-filter">Job Type:</label>
+            <select id="job-type-filter">
+                <option value="">All Job Types</option>
+                <!-- Populate options dynamically -->
+            </select>
+
+            <label for="salary-range-filter">Salary Range:</label>
+            <input type="range" id="salary-range-filter" min="0" max="200000" step="1000">
+            <span id="salary-range-value">0 - 200000</span>
+
+            <!-- Additional filters as needed -->
+        </aside>
+
+        <section id="search-results">
+            <!-- Dynamically populate job listings -->
+        </section>
+    </main>
+
+    <footer>
+        <div id="pagination">
+            <button id="prev-page" disabled>Previous</button>
+            <span id="page-numbers">Page 1</span>
+            <button id="next-page">Next</button>
+        </div>
+    </footer>
+</body>
+</html>
