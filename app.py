@@ -7,28 +7,35 @@ app = Flask(__name__)
 
 uri = "mongodb+srv://bruceandrew11:HackathonDBTest@cluster0.m6ptqli.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 client = MongoClient(uri, server_api=ServerApi('1'))
-db = client['JobConnector']
-collection = db['testCollection']
+db = client['JobDB']
+
+jobs_collection = db['Jobs']
+companies_collection = db['Companies']
+locations_collection = db['Locations']
+job_types_collection = db['JobTypes']
+boards_collection = db['Boards']
 
 @app.route('/jobs', methods=['GET'])
 def get_jobs():
-    # Retrieve jobs based on filters
-    location = request.args.get('location')
-    job_type = request.args.get('job_type')
+    location = request.args.get('location', '')
+    job_type = request.args.get('job_type', '')
     min_salary = request.args.get('min_salary', 0)
     max_salary = request.args.get('max_salary', 200000)
-    
+
     query = {}
     if location:
-        query['location'] = location
+        query['location_id'] = location
     if job_type:
-        query['job_type'] = job_type
-    query['salary'] = {'$gte': int(min_salary), '$lte': int(max_salary)}
-    
-    jobs = list(collection.find(query))
+        query['job_type_id'] = job_type
+    query['wage'] = {"$gte": int(min_salary), "$lte": int(max_salary)}
+
+    jobs = list(jobs_collection.find(query))
     for job in jobs:
-        job['_id'] = str(job['_id'])  # Convert ObjectId to string for JSON serialization
-    
+        job['_id'] = str(job['_id'])
+        job['company_id'] = str(job['company_id'])
+        job['location_id'] = str(job['location_id'])
+        job['job_type_id'] = str(job['job_type_id'])
+        job['board_id'] = str(job['board_id'])
     return jsonify(jobs)
 
 @app.route('/insert_company', methods=['POST'])
