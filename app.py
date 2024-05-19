@@ -9,7 +9,7 @@ uri = "mongodb+srv://bruceandrew11:HackathonDBTest@cluster0.m6ptqli.mongodb.net/
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client['JobDB']
 
-jobs_collection = db['Jobs'
+jobs_collection = db['Jobs']
 companies_collection = db['Companies']
 locations_collection = db['Locations']
 job_types_collection = db['JobTypes']
