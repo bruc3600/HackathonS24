@@ -33,8 +33,13 @@
     </header>
     <main>
         <section id="search-results">
-            <?php include 'search.php'; ?>
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
+                include 'search.php';
+            }
+            ?>
         </section>
     </main>
 </body>
 </html>
+
