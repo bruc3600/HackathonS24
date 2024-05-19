@@ -15,23 +15,27 @@ locations_collection = db['Locations']
 job_types_collection = db['JobTypes']
 boards_collection = db['Boards']
 
+
+
 @app.route('/jobs', methods=['GET'])
 def get_jobs():
-    location = request.args.get('location', '')
-    job_type = request.args.get('job_type', '')
+    location = request.args.get('Location', '')
+    job_type = request.args.get('JobTypes', '')
     min_salary = request.args.get('min_salary', 0)
     max_salary = request.args.get('max_salary', 200000)
 
     query = {}
     if location:
-        query['location_id'] = location
+        query['_id'] = location
     if job_type:
-        query['job_type_id'] = job_type
+        query['_id'] = job_type
     query['wage'] = {"$gte": int(min_salary), "$lte": int(max_salary)}
 
     jobs = list(jobs_collection.find(query))
     for job in jobs:
         job['_id'] = str(job['_id'])
+        job['title'] = str(job['title'])
+        job['description'] = str(job['description'])
         job['company_id'] = str(job['company_id'])
         job['location_id'] = str(job['location_id'])
         job['job_type_id'] = str(job['job_type_id'])
@@ -124,3 +128,6 @@ def get_companies():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+get_jobs()
+print(location)
