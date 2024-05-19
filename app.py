@@ -62,6 +62,7 @@ def insert_location():
     result = locations_collection.insert_one(location_document)
     return jsonify({"inserted_id": str(result.inserted_id)})
 
+
 @app.route('/insert_job_type', methods=['POST'])
 def insert_job_type():
     data = request.json
@@ -99,6 +100,27 @@ def insert_job():
     }
     result = jobs_collection.insert_one(job_document)
     return jsonify({"inserted_id": str(result.inserted_id)})
+
+@app.route('/locations', methods=['GET'])
+def get_locations():
+    locations = list(locations_collection.find({}))
+    for location in locations:
+        location['_id'] = str(location['_id'])
+    return jsonify(locations)
+
+@app.route('/job_types', methods=['GET'])
+def get_job_types():
+    job_types = list(job_types_collection.find({}))
+    for job_type in job_types:
+        job_type['_id'] = str(job_type['_id'])
+    return jsonify(job_types)
+
+@app.route('/companies', methods=['GET'])
+def get_companies():
+    companies = list(companies_collection.find({}))
+    for company in companies:
+        company['_id'] = str(company['_id'])
+    return jsonify(companies)
 
 if __name__ == '__main__':
     app.run(debug=True)
