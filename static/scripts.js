@@ -49,21 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function populateFilters() {
-    fetch('/Locations')
+    fetch('http://127.0.0.1:5000/Locations')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         return response.json();
       })
-      .then(locations => {
-        console.log('Locations data:', locations);
+      .then(Locations => {
+        console.log('Locations data:', Locations);
         const locationFilter = document.getElementById('location-filter');
-        locations.forEach(location => {
+        Locations.forEach(location => {
           const option = document.createElement('option');
           option.value = Locations._id;
-          option.textContent = `${Locations.city}, ${Locations.state}, ${Locations.country}`;
-          locationFilter.appendChild(option);
+          option.textContent = `${JobDB.Locations.city}, ${JobDB.Locations.state}, ${JobDB.Locations.country}`;
+          locationFilter.appendChild(option.value);
         });
       })
       .catch(error => console.error('Error fetching locations:', error));
