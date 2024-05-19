@@ -5,11 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 const slider = document.getElementById('salary-range-filter');
 const output = document.getElementById('salary-range-value');
 
-slider.addEventListener('input', function(){
+slider.addEventListener('input', function() {
     output.textContent = `${slider.value} - 200000`;
 });
 
 document.getElementById('filter-button').addEventListener('click', applyFilters);
+document.getElementById('search-button').addEventListener('click', applyFilters);
 
 function applyFilters() {
     const location = document.getElementById('location-filter').value;
@@ -20,7 +21,7 @@ function applyFilters() {
 
     console.log(`Applying filters: Location=${location}, JobType=${jobType}, SalaryRange=${minSalary}-${maxSalary}`);
 
-    fetch(`/jobs?location=${location}&job_type=${jobType}&min_salary=${minSalary}&max_salary=${maxSalary}`)
+    fetch(`/JobDB?location=${location}&job_type_id=${jobType}&min_salary=${minSalary}&max_salary=${maxSalary}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -62,14 +63,14 @@ function populateFilters() {
             const locationFilter = document.getElementById('location-filter');
             locations.forEach(location => {
                 const option = document.createElement('option');
-                option.value = location['_id'];
+                option.value = location._id; // Use the ID for the value
                 option.textContent = `${location.city}, ${location.state}, ${location.country}`;
                 locationFilter.appendChild(option);
             });
         })
         .catch(error => console.error('Error fetching locations:', error));
 
-    fetch('/job_types')
+    fetch('/jobtypes')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -81,10 +82,11 @@ function populateFilters() {
             const jobTypeFilter = document.getElementById('job-type-filter');
             jobTypes.forEach(jobType => {
                 const option = document.createElement('option');
-                option.value = jobType['_id'];
+                option.value = jobType._id; // Use the ID for the value
                 option.textContent = jobType.type;
                 jobTypeFilter.appendChild(option);
             });
         })
         .catch(error => console.error('Error fetching job types:', error));
 }
+
