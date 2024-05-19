@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from datetime import datetime
@@ -16,8 +16,10 @@ job_types_collection = db['JobTypes']
 boards_collection = db['Boards']
 
 
+def index():
+    return render_template('index.html')
 
-@app.route('/jobs', methods=['GET'])
+@app.route('/Jobs', methods=['GET'])
 def get_jobs():
     location = request.args.get('Location', '')
     job_type = request.args.get('JobTypes', '')
@@ -105,21 +107,25 @@ def insert_job():
     result = jobs_collection.insert_one(job_document)
     return jsonify({"inserted_id": str(result.inserted_id)})
 
-@app.route('/locations', methods=['GET'])
+@app.route('/Locations', methods=['GET'])
 def get_locations():
     locations = list(locations_collection.find({}))
     for location in locations:
         location['_id'] = str(location['_id'])
+        location['city'] = str(location['city'])
+        location['state'] = str(location['state'])
+        location['country'] = str(location['country'])
+        location['zip_code'] = str(location['zip_code'])
     return jsonify(locations)
 
-@app.route('/job_types', methods=['GET'])
+@app.route('/JobTypes', methods=['GET'])
 def get_job_types():
     job_types = list(job_types_collection.find({}))
     for job_type in job_types:
         job_type['_id'] = str(job_type['_id'])
     return jsonify(job_types)
 
-@app.route('/companies', methods=['GET'])
+@app.route('/Companies', methods=['GET'])
 def get_companies():
     companies = list(companies_collection.find({}))
     for company in companies:
@@ -128,6 +134,3 @@ def get_companies():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-get_jobs()
-print(location)
