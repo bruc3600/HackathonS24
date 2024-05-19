@@ -1,18 +1,14 @@
-// salary slider
+document.addEventListener('DOMContentLoaded', () => {
+    populateFilters();
+});
+
 const slider = document.getElementById('salary-range-filter');
 const output = document.getElementById('salary-range-value');
 
 slider.addEventListener('input', function(){
-    output.textContent = `${slider.value}`;
+    output.textContent = `${slider.value} - 200000`;
 });
 
-function applyFilters(){
-    console.log(`Applying filters with salary range: ${slider.value} - 200000`);
-}
-
-
-
-// connect to DB
 document.getElementById('filter-button').addEventListener('click', applyFilters);
         
         function applyFilters() {
@@ -21,11 +17,17 @@ document.getElementById('filter-button').addEventListener('click', applyFilters)
             const salaryRange = document.getElementById('salary-range-filter').value;
             const [minSalary, maxSalary] = [0, 200000]; // Example range; adjust as needed
 
-            fetch(`/jobs?location=${location}&job_type=${jobType}&min_salary=${minSalary}&max_salary=${maxSalary}`)
-                .then(response => response.json())
-                .then(data => {
-                    const searchResults = document.getElementById('search-results');
-                    searchResults.innerHTML = '';
+    fetch(`/jobs?location=${location}&job_type=${jobType}&min_salary=${minSalary}&max_salary=${maxSalary}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Jobs data:', data);
+            const searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = '';
 
                     data.forEach(job => {
                         const jobElement = document.createElement('div');

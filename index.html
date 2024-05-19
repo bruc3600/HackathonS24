@@ -35,7 +35,6 @@
             <input type="range" id="salary-range-filter" min="0" max="200000" step="1000">
             <span id="salary-range-value">0 - 200000</span>
             
-            <!-- Additional filters as needed -->
             <button id="filter-button">Apply Filters</button>
         </aside>
 
@@ -51,6 +50,37 @@
             <button id="next-page">Next</button>
         </div>
     </footer>   
+    <script>
+        // Populate location and job type filters
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('/locations') // Assuming you have an endpoint to fetch locations
+                .then(response => response.json())
+                .then(locations => {
+                    const locationFilter = document.getElementById('location-filter');
+                    locations.forEach(location => {
+                        const option = document.createElement('option');
+                        option.value = location;
+                        option.textContent = location;
+                        locationFilter.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching locations:', error));
+
+            fetch('/jobtypes') // Assuming you have an endpoint to fetch job types
+                .then(response => response.json())
+                .then(jobTypes => {
+                    const jobTypeFilter = document.getElementById('job-type-filter');
+                    jobTypes.forEach(jobType => {
+                        const option = document.createElement('option');
+                        option.value = jobType;
+                        option.textContent = jobType;
+                        jobTypeFilter.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching job types:', error));
+        });
+    </script>
 </body>
 </html>
+
 
