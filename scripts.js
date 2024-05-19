@@ -6,7 +6,7 @@ const slider = document.getElementById('salary-range-filter');
 const output = document.getElementById('salary-range-value');
 
 slider.addEventListener('input', function(){
-    output.textContent = `${slider.value}`;
+    output.textContent = `${slider.value} - 200000`;
 });
 
 document.getElementById('filter-button').addEventListener('click', applyFilters);
@@ -15,11 +15,20 @@ function applyFilters() {
     const location = document.getElementById('location-filter').value;
     const jobType = document.getElementById('job-type-filter').value;
     const salaryRange = document.getElementById('salary-range-filter').value;
-    const [minSalary, maxSalary] = [0, 200000]; // Example range; adjust as needed
+    const minSalary = 0;
+    const maxSalary = salaryRange;
+
+    console.log(`Applying filters: Location=${location}, JobType=${jobType}, SalaryRange=${minSalary}-${maxSalary}`);
 
     fetch(`/jobs?location=${location}&job_type=${jobType}&min_salary=${minSalary}&max_salary=${maxSalary}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Jobs data:', data);
             const searchResults = document.getElementById('search-results');
             searchResults.innerHTML = '';
 
@@ -28,10 +37,10 @@ function applyFilters() {
                 jobElement.className = 'job-listing';
                 jobElement.innerHTML = `
                     <h3>${job.title}</h3>
-                    <p>Company: ${job.company_id}</p>
-                    <p>Location: ${job.location_id}</p>
+                    <p>Company ID: ${job.company_id}</p>
+                    <p>Location ID: ${job.location_id}</p>
                     <p>Salary: ${job.wage}</p>
-                    <p>Type: ${job.job_type_id}</p>
+                    <p>Type ID: ${job.job_type_id}</p>
                     <p>Posted on: ${new Date(job.posting_date).toLocaleDateString()}</p>
                 `;
                 searchResults.appendChild(jobElement);
@@ -42,8 +51,14 @@ function applyFilters() {
 
 function populateFilters() {
     fetch('/locations')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(locations => {
+            console.log('Locations data:', locations);
             const locationFilter = document.getElementById('location-filter');
             locations.forEach(location => {
                 const option = document.createElement('option');
@@ -55,8 +70,14 @@ function populateFilters() {
         .catch(error => console.error('Error fetching locations:', error));
 
     fetch('/job_types')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(jobTypes => {
+            console.log('Job types data:', jobTypes);
             const jobTypeFilter = document.getElementById('job-type-filter');
             jobTypes.forEach(jobType => {
                 const option = document.createElement('option');
