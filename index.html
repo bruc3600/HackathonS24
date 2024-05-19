@@ -5,82 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Search Engine</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="scripts.js"></script>
 </head>
 <body>
     <header>
         <h1>Job Search Engine</h1>
-        <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search for jobs...">
-            <button id="search-button">Search</button>
-        </div>
+        <form method="GET" action="search.php">
+            <div>
+                <label for="location">Location:</label>
+                <select id="location" name="location">
+                    <option value="">All Locations</option>
+                    <?php include 'get_locations.php'; ?>
+                </select>
+            </div>
+            <div>
+                <label for="job_type">Job Type:</label>
+                <select id="job_type" name="job_type">
+                    <option value="">All Job Types</option>
+                    <?php include 'get_jobtypes.php'; ?>
+                </select>
+            </div>
+            <div>
+                <label for="salary_range">Salary Range:</label>
+                <input type="text" id="salary_range" name="salary_range" placeholder="e.g. 30000-50000">
+            </div>
+            <button type="submit">Search</button>
+        </form>
     </header>
-    
     <main>
-        <aside id="filters">
-            <h2>Filters</h2>
-            <label for="location-filter">Location:</label>
-            <select id="location-filter">
-                <option value="">All Locations</option>
-                <!-- Populate options dynamically -->
-            </select>
-
-            <label for="job-type-filter">Job Type:</label>
-            <select id="job-type-filter">
-                <option value="">All Job Types</option>
-                <!-- Populate options dynamically -->
-            </select>
-
-            <label for="salary-range-filter">Salary Range:</label>
-            <input type="range" id="salary-range-filter" min="0" max="200000" step="1000">
-            <span id="salary-range-value">0 - 200000</span>
-            
-            <button id="filter-button">Apply Filters</button>
-        </aside>
-
         <section id="search-results">
-            <!-- Dynamically populate job listings -->
+            <?php include 'search.php'; ?>
         </section>
     </main>
-
-    <footer>
-        <div id="pagination">
-            <button id="prev-page" disabled>Previous</button>
-            <span id="page-numbers">Page 1</span>
-            <button id="next-page">Next</button>
-        </div>
-    </footer>   
-    <script>
-        // Populate location and job type filters
-        window.addEventListener('DOMContentLoaded', () => {
-            fetch('/locations') // Assuming you have an endpoint to fetch locations
-                .then(response => response.json())
-                .then(locations => {
-                    const locationFilter = document.getElementById('location-filter');
-                    locations.forEach(location => {
-                        const option = document.createElement('option');
-                        option.value = location;
-                        option.textContent = location;
-                        locationFilter.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching locations:', error));
-
-            fetch('/jobtypes') // Assuming you have an endpoint to fetch job types
-                .then(response => response.json())
-                .then(jobTypes => {
-                    const jobTypeFilter = document.getElementById('job-type-filter');
-                    jobTypes.forEach(jobType => {
-                        const option = document.createElement('option');
-                        option.value = jobType;
-                        option.textContent = jobType;
-                        jobTypeFilter.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching job types:', error));
-        });
-    </script>
 </body>
 </html>
-
-
