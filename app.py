@@ -15,7 +15,7 @@ locations_collection = db['Locations']
 job_types_collection = db['JobTypes']
 boards_collection = db['Boards']
 
-
+@app.route('/')
 def index():
     return render_template('index.html')
 
