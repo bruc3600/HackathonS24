@@ -1,4 +1,7 @@
-// salary slider
+document.addEventListener('DOMContentLoaded', () => {
+    populateFilters();
+});
+
 const slider = document.getElementById('salary-range-filter');
 const output = document.getElementById('salary-range-value');
 
@@ -35,4 +38,32 @@ function applyFilters() {
             });
         })
         .catch(error => console.error('Error fetching jobs:', error));
+}
+
+function populateFilters() {
+    fetch('/locations')
+        .then(response => response.json())
+        .then(locations => {
+            const locationFilter = document.getElementById('location-filter');
+            locations.forEach(location => {
+                const option = document.createElement('option');
+                option.value = location['_id'];
+                option.textContent = `${location.city}, ${location.state}, ${location.country}`;
+                locationFilter.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching locations:', error));
+
+    fetch('/job_types')
+        .then(response => response.json())
+        .then(jobTypes => {
+            const jobTypeFilter = document.getElementById('job-type-filter');
+            jobTypes.forEach(jobType => {
+                const option = document.createElement('option');
+                option.value = jobType['_id'];
+                option.textContent = jobType.type;
+                jobTypeFilter.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching job types:', error));
 }
